@@ -2,6 +2,7 @@
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:financial_management_app/analysisPages/analysis_pages.dart';
+import 'package:financial_management_app/analysisPages/new_expense.dart';
 import 'package:financial_management_app/homePages/home_page.dart';
 import 'package:financial_management_app/settingsPage/settings_page.dart';
 import 'package:financial_management_app/walletpages/wallet_page.dart';
@@ -36,7 +37,10 @@ class _BottomNavBarState extends State<BottomNavBars> {
     return Scaffold (
       body: _children[_selectedIndex],
       floatingActionButton: FloatingActionButton(
-          onPressed: (){},
+          onPressed: (){
+            showDialog(context: context, 
+            builder: (context) => CreateNewExpense());
+          },
           backgroundColor: Colors.green.shade500,
           child: Icon(Icons.add, 
           color: Colors.white, size: 40,),),

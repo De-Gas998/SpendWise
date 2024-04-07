@@ -1,4 +1,4 @@
-import 'package:financial_management_app/authentication/onboarding.dart';
+import 'package:financial_management_app/onboarding/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -9,31 +9,39 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> 
-with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive, 
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.immersive,
     );
-    Future.delayed(Duration(seconds: 5), (){
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) => const onboarding()));
+    Future.delayed(Duration(seconds: 5), () {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const Onboarding()));
     });
   }
 
   @override
-  void dispose(){
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, 
-      overlays: SystemUiOverlay.values);
-      super.dispose();
-    }
+  void dispose() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: 
-    Center(child: 
-    Container(height: 800, width: 400, color: Colors.white,
-      child: 
-    Image.asset("images/download.png", fit: BoxFit.contain,)),));
+    return Scaffold(
+        body: Center(
+      child: Container(
+          height: 800,
+          width: 400,
+          color: Colors.white,
+          child: Image.asset(
+            "images/download.png",
+            fit: BoxFit.contain,
+          )),
+    ));
   }
 }

@@ -37,7 +37,7 @@ class BigContainer extends StatelessWidget {
                       Text(
                         "Medical Centre",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 22),
+                            fontWeight: FontWeight.w600, fontSize: 22),
                       ),
                       const SizedBox(
                         height: 8,
@@ -61,7 +61,7 @@ class BigContainer extends StatelessWidget {
                       ),
                       Text(
                         "Oct 27, 2022",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 12),
                       ),
                     ],
                   )

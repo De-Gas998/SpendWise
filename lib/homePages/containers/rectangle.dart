@@ -3,319 +3,141 @@
 import 'package:flutter/material.dart';
 
 class Rectangle extends StatelessWidget {
-
-  const Rectangle({super.key,
-  
+  const Rectangle({
+    super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return 
-    Column(
-      children: [
+    return Wrap(
+        spacing: 10,
+        runSpacing: 15,
+        children: List.generate(
+          homeStatatisticsList.length,
+          (index) => StatisticsCard(
+            onTap: () {
+              // print(homeStatatisticsList[index]['title']);
+            },
+            title: homeStatatisticsList[index]['title'],
+            subTitle: homeStatatisticsList[index]['subtitle'],
+            image: homeStatatisticsList[index]['image'],
+          ),
+        ));
+  }
+}
 
-        //first row
-        Row(
-          children: [
-            Container(height: 60, width: 170,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [BoxShadow(
+class StatisticsCard extends StatelessWidget {
+  const StatisticsCard({
+    super.key,
+    this.title,
+    this.subTitle,
+    this.image,
+    this.onTap,
+  });
+  final String? title;
+  final String? subTitle;
+  final String? image;
+  final void Function()? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 70,
+        width: 170,
+        decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
                   color: Colors.grey.shade500,
                   offset: Offset(2, 2),
                   blurRadius: 6,
-                  spreadRadius: 0.5
-                )]
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Expanded(flex: 2,
-                      child: Container(
-                        //height: 10,width: 10,
-                      decoration: BoxDecoration(shape: BoxShape.circle,
-                      color: Colors.green.shade100,),
-                        child: Image.asset("images/sales.png", 
-                        height:50,width:50,),
-                      )),
-                    Expanded(flex:3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("\$9000",
-                              style: TextStyle(fontSize: 20,
-                              fontWeight: FontWeight.bold),),
-                              Icon(Icons.arrow_forward_ios_outlined,
-                              size: 15,)
-                            ],
-                          ),
-            
-                          const SizedBox(height: 5,),
-                          Text("Income"),
-                        ],
-                      ),
+                  spreadRadius: 0.5)
+            ]),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Expanded(
+                  flex: 2,
+                  child: Container(
+                    //height: 10,width: 10,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.green.shade100,
                     ),
+                    child: Image.asset(
+                      image!,
+                      // "images/sales.png",
+                      height: 35,
+                      width: 35,
+                    ),
+                  )),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "\$$title",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w600),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          size: 15,
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(subTitle!),
                   ],
                 ),
               ),
-            ),
-
-            const SizedBox(width: 20,),
-
-            //bills
-            Container(height: 60, width: 170,
-          decoration: BoxDecoration(
-            color: Colors.grey.shade200,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [BoxShadow(
-              color: Colors.grey.shade500,
-              offset: Offset(2, 2),
-              blurRadius: 6,
-              spreadRadius: 0.5
-            )]
+            ],
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(flex: 2,
-                  child: Container(
-                    decoration: BoxDecoration(shape: BoxShape.circle,
-                      color: Colors.green.shade100,),
-                    child: Image.asset("images/bill.png", 
-                    height:50,width:50,),
-                  )),
-                Expanded(flex:3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("\$1500",
-                          style: TextStyle(fontSize: 20,
-                          fontWeight: FontWeight.bold),),
-                          Icon(Icons.arrow_forward_ios_outlined,
-                          size: 15,)
-                        ],
-                      ),
-        
-                      const SizedBox(height: 5,),
-                      Text("Bills"),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )],
         ),
-
-        const SizedBox(height: 20,),
-
-        //second row
-        Row(
-          children: [
-            Container(height: 60, width: 170,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [BoxShadow(
-                  color: Colors.grey.shade500,
-                  offset: Offset(2, 2),
-                  blurRadius: 6,
-                  spreadRadius: 0.5
-                )]
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Expanded(flex: 2,
-                      child: Container(
-                        decoration: BoxDecoration(shape: BoxShape.circle,
-                      color: Colors.green.shade100,),
-                        child: Image.asset("images/expense.png", 
-                        height:50,width:50,),
-                      )),
-                    Expanded(flex:3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("\$7000",
-                              style: TextStyle(fontSize: 20,
-                              fontWeight: FontWeight.bold),),
-                              Icon(Icons.arrow_forward_ios_outlined,
-                              size: 15,)
-                            ],
-                          ),
-            
-                          const SizedBox(height: 5,),
-                          Text("Expenses"),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            const SizedBox(width: 20,),
-
-            //savings
-            Container(height: 60, width: 170,
-          decoration: BoxDecoration(
-            color: Colors.grey.shade200,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [BoxShadow(
-              color: Colors.grey.shade500,
-              offset: Offset(2, 2),
-              blurRadius: 6,
-              spreadRadius: 0.5
-            )]
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(flex: 2,
-                  child: Container(
-                    decoration: BoxDecoration(shape: BoxShape.circle,
-                      color: Colors.green.shade100,),
-                    child: Image.asset("images/piggy.png", 
-                    height:50,width:50,),
-                  )),
-                Expanded(flex:3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("\$3500",
-                          style: TextStyle(fontSize: 20,
-                          fontWeight: FontWeight.bold),),
-                          Icon(Icons.arrow_forward_ios_outlined,
-                          size: 15,)
-                        ],
-                      ),
-        
-                      const SizedBox(height: 5,),
-                      Text("Savings"),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )],
-        ),
-
-        const SizedBox(height: 20,),
-
-        //third row
-        Row(
-          children: [
-            Container(height: 60, width: 170,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [BoxShadow(
-                  color: Colors.grey.shade500,
-                  offset: Offset(2, 2),
-                  blurRadius: 6,
-                  spreadRadius: 0.5
-                )]
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Expanded(flex: 2,
-                      child: Container(
-                        decoration: BoxDecoration(shape: BoxShape.circle,
-                      color: Colors.green.shade100,),
-                        child: Image.asset("images/family.png", 
-                        height:50,width:50,),
-                      )),
-                    Expanded(flex:3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("3",
-                              style: TextStyle(fontSize: 20,
-                              fontWeight: FontWeight.bold),),
-                              Icon(Icons.arrow_forward_ios_outlined,
-                              size: 15,)
-                            ],
-                          ),
-            
-                          const SizedBox(height: 5,),
-                          Text("My family"),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            const SizedBox(width: 20,),
-
-            //points
-            Container(height: 60, width: 170,
-          decoration: BoxDecoration(
-            color: Colors.grey.shade200,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [BoxShadow(
-              color: Colors.grey.shade500,
-              offset: Offset(2, 2),
-              blurRadius: 6,
-              spreadRadius: 0.5
-            )]
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(flex: 2,
-                  child: Container(
-                    decoration: BoxDecoration(shape: BoxShape.circle,
-                      color: Colors.green.shade100,),
-                    child: Image.asset("images/surprise.png", 
-                    height:50,width:50,),
-                  )),
-                Expanded(flex:3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("\$100",
-                          style: TextStyle(fontSize: 20,
-                          fontWeight: FontWeight.bold),),
-                          Icon(Icons.arrow_forward_ios_outlined,
-                          size: 15,)
-                        ],
-                      ),
-        
-                      const SizedBox(height: 5,),
-                      Text("Points"),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )],
-        ),
-      ],
+      ),
     );
   }
 }
+
+List<Map<String, dynamic>> homeStatatisticsList = [
+  {
+    "title": "9000",
+    "subtitle": "Income",
+    "image": "images/sales.png",
+  },
+  {
+    "title": "1500",
+    "subtitle": "Bills",
+    "image": "images/bill.png",
+  },
+  {
+    "title": "9000",
+    "subtitle": "Expenses",
+    "image": "images/expense.png",
+  },
+  {
+    "title": "9000",
+    "subtitle": "Savings",
+    "image": "images/piggy.png",
+  },
+  {
+    "title": "9000",
+    "subtitle": "My Family",
+    "image": "images/family.png",
+  },
+  {
+    "title": "9000",
+    "subtitle": "Points",
+    "image": "images/surprise.png",
+  }
+];

@@ -1,18 +1,18 @@
 import 'package:financial_management_app/authentication/well_done.dart';
-import 'package:financial_management_app/authentication/intro_page1.dart';
-import 'package:financial_management_app/authentication/intro_page2.dart';
-import 'package:financial_management_app/authentication/intro_page3.dart';
+import 'package:financial_management_app/onboarding/intro_page1.dart';
+import 'package:financial_management_app/onboarding/intro_page2.dart';
+import 'package:financial_management_app/onboarding/intro_page3.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class onboarding extends StatefulWidget {
-  const onboarding({super.key});
+class Onboarding extends StatefulWidget {
+  const Onboarding({super.key});
 
   @override
-  State<onboarding> createState() => _onboardingState();
+  State<Onboarding> createState() => _OnboardingState();
 }
 
-class _onboardingState extends State<onboarding> {
+class _OnboardingState extends State<Onboarding> {
   //controller to keep track of which page we're on
   PageController _controller = PageController();
 

@@ -7,7 +7,6 @@ import 'package:financial_management_app/homePages/containers/rectangle.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-
   HomePage({super.key});
 
   final List accounts = [
@@ -20,16 +19,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.grey[200],
-        
-
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal:15),
+    return Scaffold(
+      backgroundColor: Colors.grey[200],
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             children: [
-              SizedBox(height: 10,),
               Column(
                 children: [
                   //Account balance display
@@ -38,7 +34,7 @@ class HomePage extends StatelessWidget {
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        children: const [
                           Text(
                             "Total balance",
                             style: TextStyle(
@@ -48,7 +44,7 @@ class HomePage extends StatelessWidget {
                           Text(
                             "\$9000.00",
                             style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
+                                fontSize: 20, fontWeight: FontWeight.w600),
                           )
                         ],
                       ),
@@ -62,12 +58,12 @@ class HomePage extends StatelessWidget {
                   ),
 
                   SizedBox(
-                    height: 15,
+                    height: 10,
                   ),
 
                   //bank cards
                   Container(
-                    height: 130,
+                    height: 110,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: accounts.length,
@@ -78,11 +74,11 @@ class HomePage extends StatelessWidget {
                   ),
 
                   const Divider(
-                    thickness: 2,
+                    thickness: 1,
                   ),
 
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                 ],
               ),
@@ -90,18 +86,18 @@ class HomePage extends StatelessWidget {
               //app features
               Rectangle(),
 
-              const SizedBox(
-                height: 10,
-              ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
 
               //recent transactions
               Expanded(
                 child: Container(
                   padding: EdgeInsets.all(8),
                   //decoration: BoxDecoration(
-                      //borderRadius: BorderRadius.circular(8),
-                     // border:
-                         // Border.all(width: 1, color: Colors.grey.shade400)),
+                  //borderRadius: BorderRadius.circular(8),
+                  // border:
+                  // Border.all(width: 1, color: Colors.grey.shade400)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -113,7 +109,7 @@ class HomePage extends StatelessWidget {
                             Text(
                               "Recent Transactions",
                               style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold),
+                                  fontSize: 22, fontWeight: FontWeight.w600),
                             ),
                             Text(
                               "See All   >",
@@ -145,31 +141,34 @@ class HomePage extends StatelessWidget {
                       ),
                       //updates
                       Expanded(
-                        child: ListView(children: [
-                          BigContainer(),
-
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical:5.0),
-                            child: Divider(
-                              thickness: 1,color: Colors.grey.shade500,),
-                          ),
-                          BigContainer(),
-
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical:5.0),
-                            child: Divider(
-                              thickness: 1,color: Colors.grey.shade500,),
-                          ),
-                          BigContainer()
-                        ],),
+                        child: ListView(
+                          children: [
+                            BigContainer(),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 5.0),
+                              child: Divider(
+                                thickness: 1,
+                                color: Colors.grey.shade500,
+                              ),
+                            ),
+                            BigContainer(),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 5.0),
+                              child: Divider(
+                                thickness: 1,
+                                color: Colors.grey.shade500,
+                              ),
+                            ),
+                            BigContainer()
+                          ],
+                        ),
                       )
-                        
-                      
                     ],
                   ),
                 ),
               ),
-              
             ],
           ),
         ),

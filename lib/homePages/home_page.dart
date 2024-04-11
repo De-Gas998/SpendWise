@@ -5,10 +5,17 @@ import 'package:financial_management_app/homePages/containers/circular.dart';
 import 'package:financial_management_app/homePages/containers/rectangle.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final List accounts = [
     "MOMO",
     "GTBank",
@@ -16,7 +23,11 @@ class HomePage extends StatelessWidget {
     "Add Bank Card",
     "Add Manually"
   ];
-
+@override
+  void initState() {
+getTotalTransaction();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,3 +187,64 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+ getTotalTransaction()async{
+   final SmsQuery query = SmsQuery();
+    List<SmsMessage> _messages = [];
+   var permission = await Permission.sms.status;
+            if (permission.isGranted) {
+              _messages = await query.querySms(
+                kinds: [
+                  SmsQueryKind.draft,
+                  SmsQueryKind.sent,
+                ],
+                // address: '+254712345789',
+                count: 10,
+              );
+              debugPrint('sms inbox messages: ${_messages.length}');
+
+            } else {
+              await Permission.sms.request();
+            }
+
+      double sum = 0.0;
+            double subtract = 0.0;
+
+    for (SmsMessage payment in _messages) {
+      if (payment.body!.contains('received for')) {
+        String extractedAmount = extractAmount(payment.body!);
+        if (extractedAmount.isNotEmpty) {
+          double amount = double.tryParse(extractedAmount.replaceAll(',', '')) ?? 0.0;
+          sum += amount;
+          print(sum);
+          
+        }
+
+        // print(sum);
+      }else{
+          String extractedAmount = extractAmount(payment.body!);
+        if (extractedAmount.isNotEmpty) {
+          double amount = double.tryParse(extractedAmount.replaceAll(',', '')) ?? 0.0;
+          subtract+= amount;
+          print(subtract);
+          
+        }
+
+      }
+    }
+
+}
+
+ String extractAmount(String payment) {
+    RegExp regExp = RegExp(r'GHS\s?([\d.,]+)');
+    RegExpMatch? match = regExp.firstMatch(payment);
+    if (match != null) {
+      return match.group(1)!;
+    } else {
+      return '';
+    }
+  }

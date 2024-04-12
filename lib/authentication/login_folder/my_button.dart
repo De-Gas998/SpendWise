@@ -2,34 +2,41 @@ import 'package:flutter/material.dart';
 
 class MyButton extends StatelessWidget {
   final String text;
-  final void Function()?onPress;
-  const MyButton({super.key,
-  required this.text,this.onPress});
+  final void Function()? onPress;
+  const MyButton({super.key, required this.text, this.onPress});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.sizeOf(context).width,
       child: TextButton(
-        style: TextButton.styleFrom(backgroundColor:Colors.green, ),
-        onPressed: onPress, child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Text(text,style: 
-          TextStyle(color: Colors.white,
-          fontSize: 18, fontWeight: FontWeight.bold),),
-      )),
+          style: TextButton.styleFrom(
+              backgroundColor: Colors.green,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6))),
+          onPressed: onPress,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            child: Text(
+              text,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
+          )),
     );
     // Container(
     //   //color: Colors.green,
     //   height: 70,
-    //   decoration: 
+    //   decoration:
     // BoxDecoration(
     //   color: Colors.green,
     // borderRadius: BorderRadius.circular(8)),
     // child: Center(
-      // child: Text(text, style: 
-      // TextStyle(color: Colors.white,
-      // fontSize: 18, fontWeight: FontWeight.bold),),
+    // child: Text(text, style:
+    // TextStyle(color: Colors.white,
+    // fontSize: 18, fontWeight: FontWeight.bold),),
     // ),);
   }
 }

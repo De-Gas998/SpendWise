@@ -1,32 +1,58 @@
 //import 'dart:js';
 
+import 'package:financial_management_app/analysisPages/expense.dart';
 import 'package:financial_management_app/authentication/splash.dart';
 import 'package:financial_management_app/database/expense_database.dart';
+import 'package:financial_management_app/database/goals_database.dart';
+import 'package:financial_management_app/db/goals/goal.dart';
 import 'package:flutter/material.dart';
+import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:provider/provider.dart';
 
-void main() async{
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+
+//   //initialize db
+//   await ExpenseDatabase.initialize();
+//   await GoalsDatabase.initialize();
+//   runApp(ChangeNotifierProvider(
+//     create: (context) => ExpenseDatabase(),
+//     child: const MyApp(),
+//   ));
+// }
+late Isar isar;
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  //initialize db
-  await ExpenseDatabase.initialize();
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => ExpenseDatabase(),
-      child: const MyApp(),)
-  );
+  // Initialize both databases
+  // await ExpenseDatabase.initialize();
+  final dir = await getApplicationDocumentsDirectory();
+  isar = await Isar.openSync([ExpenseSchema, GoalModelSchema],
+      directory: dir.path);
+  // await GoalsDatabase.initialize();
+
+  // Create a MultiProvider to manage both databases
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => ExpenseDatabase()),
+      ChangeNotifierProvider(create: (context) => GoalsDatabase()),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
-      home: const SplashScreen(),);
+      home: const SplashScreen(),
+    );
   }
 }
 

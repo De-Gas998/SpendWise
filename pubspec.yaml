@@ -45,6 +45,7 @@ dependencies:
   flutter_sms_inbox: ^1.0.3
   permission_handler: ^11.0.1
   percent_indicator: ^4.2.3
+  light_modal_bottom_sheet: ^0.0.05
 
 dev_dependencies:
   flutter_test:

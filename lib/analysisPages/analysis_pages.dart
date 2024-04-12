@@ -14,7 +14,7 @@ class AnalyticsPage extends StatefulWidget {
 
 class _AnalyticsPageState extends State<AnalyticsPage> {
   //text controllers
-  
+
   @override
   void initState() {
     Provider.of<ExpenseDatabase>(context, listen: false).readExpenses();
@@ -23,31 +23,32 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ExpenseDatabase>(builder: 
-    (context, value, child) => Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      
-        body: ListView.builder(
-          itemCount: value.allExpense.length,
-          itemBuilder: (context, index){
-           
-            //get individual expense
-            Expense individualExpense = value.allExpense.reversed.toList()[index];
+    return Consumer<ExpenseDatabase>(
+        builder: (context, value, child) => Scaffold(
+              appBar: AppBar(
+                title: Text("Expenses Tracker"),
+                centerTitle: true,
+                automaticallyImplyLeading: false,
+                backgroundColor: Colors.grey.shade200,
+                surfaceTintColor: Colors.grey.shade200,
+              ),
+              backgroundColor: Colors.grey.shade200,
+              body: ListView.builder(
+                  itemCount: value.allExpense.length,
+                  itemBuilder: (context, index) {
+                    //get individual expense
+                    Expense individualExpense =
+                        value.allExpense.reversed.toList()[index];
 
-            //return ListTile
-            return ListTile(
-              title: Text(individualExpense.name),
-              trailing: Text("GH\u20b2 ${individualExpense.account}"),
-            );
-          }),
-    )
-    );
+                    //return ListTile
+                    return Card(
+                      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                      child: ListTile(
+                        title: Text(individualExpense.name),
+                        trailing: Text("GH\u20b2 ${individualExpense.account}"),
+                      ),
+                    );
+                  }),
+            ));
   }
-
-  
 }
-
-
-
-
-

@@ -7,69 +7,78 @@ class BigContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(shape: BoxShape.circle,
-                      color: Colors.green.shade200,),
-                child: Icon(
-                  Icons.medical_services_outlined,
-                  //size: 40,
+    return Column(
+      children: [
+        SizedBox(height: 5,),
+        Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.all(15),
+                    decoration: BoxDecoration(shape: BoxShape.circle,
+                          color: Colors.green.shade200,),
+                    child: Icon(
+                      Icons.medical_services_outlined,
+                      //size: 40,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            Expanded(
-              flex: 6,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                const SizedBox(
+                  width: 8,
+                ),
+                Expanded(
+                  flex: 6,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Medical Centre",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 22),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Medical Centre",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 20),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            "Health",
+                            style: TextStyle(fontSize: 16),
+                          )
+                        ],
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        "Health",
-                        style: TextStyle(fontSize: 18),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "-\$7",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            "Oct 27, 2022",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ],
                       )
                     ],
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        "-\$7",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        "Oct 27, 2022",
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+        
+        Divider(
+                                thickness: 1,
+                                color: Colors.grey.shade500,
+                              ),
+                            
+                            
+      ],
     );
   }
 }

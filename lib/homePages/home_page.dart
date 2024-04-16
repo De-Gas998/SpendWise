@@ -155,23 +155,7 @@ getTotalTransaction();
                         child: ListView(
                           children: [
                             BigContainer(),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Divider(
-                                thickness: 1,
-                                color: Colors.grey.shade500,
-                              ),
-                            ),
                             BigContainer(),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Divider(
-                                thickness: 1,
-                                color: Colors.grey.shade500,
-                              ),
-                            ),
                             BigContainer()
                           ],
                         ),
@@ -220,19 +204,24 @@ getTotalTransaction();
         if (extractedAmount.isNotEmpty) {
           double amount = double.tryParse(extractedAmount.replaceAll(',', '')) ?? 0.0;
           sum += amount;
+          print("RECIEVED::::::::::::::::::::::;");
           print(sum);
           
         }
 
         // print(sum);
       }else{
-          String extractedAmount = extractAmount(payment.body!);
+        if(payment.body!.contains("Bills")||payment.body!.contains("Expenses")||payment.body!.contains("Family")){
+  String extractedAmount = extractAmount(payment.body!);
         if (extractedAmount.isNotEmpty) {
           double amount = double.tryParse(extractedAmount.replaceAll(',', '')) ?? 0.0;
           subtract+= amount;
-          print(subtract);
+          print("OTHERS");
+          print(amount);
           
         }
+        }
+        
 
       }
     }

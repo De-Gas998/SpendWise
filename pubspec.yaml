@@ -48,6 +48,9 @@ dependencies:
   light_modal_bottom_sheet: ^0.0.05
   flutter_slidable: ^3.1.0
   fl_chart: ^0.65.0
+  firebase_core: ^2.30.0
+  firebase_auth: ^4.19.2
+  pin_code_fields: ^8.0.1
 
 dev_dependencies:
   flutter_test:

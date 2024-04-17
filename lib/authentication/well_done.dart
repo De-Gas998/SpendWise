@@ -37,26 +37,29 @@ class WellDone extends StatelessWidget {
                 "Welcome to Spend Wise, your new bestfriend to manage your money.",
                 style: TextStyle(color: Colors.grey.shade600, fontSize: 16),
               ),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
 
               //sign in button
-             
-               MyButton(text: "Sign In",onPress: (){
-                //go to sign up page
-                Navigator.push(context, 
-                MaterialPageRoute(builder: 
-                (context) => Sign_In()));
-              } ,),
+
+              MyButton(
+                text: "Continue",
+                onPress: () {
+                  //go to sign up page
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Sign_In()));
+                },
+              ),
 
               SizedBox(height: 15),
 
-               MyButton(text: "Sign Up",onPress: (){
-                //go to sign up page
-                Navigator.push(context, 
-                MaterialPageRoute(builder: 
-                (context) => Sign_Up()));
-              } ,),
-             
+              //  MyButton(text: "Sign Up",onPress: (){
+              //   //go to sign up page
+              //   Navigator.push(context,
+              //   MaterialPageRoute(builder:
+              //   (context) => Sign_Up()));
+              // } ,),
             ],
           ),
         ),

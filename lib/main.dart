@@ -5,35 +5,24 @@ import 'package:financial_management_app/authentication/splash.dart';
 import 'package:financial_management_app/database/expense_database.dart';
 import 'package:financial_management_app/database/goals_database.dart';
 import 'package:financial_management_app/db/goals/goal.dart';
+import 'package:financial_management_app/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:provider/provider.dart';
 
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-
-//   //initialize db
-//   await ExpenseDatabase.initialize();
-//   await GoalsDatabase.initialize();
-//   runApp(ChangeNotifierProvider(
-//     create: (context) => ExpenseDatabase(),
-//     child: const MyApp(),
-//   ));
-// }
 late Isar isar;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-  // Initialize both databases
-  // await ExpenseDatabase.initialize();
   final dir = await getApplicationDocumentsDirectory();
-  isar = await Isar.openSync([ExpenseSchema, GoalModelSchema],
-      directory: dir.path);
-  // await GoalsDatabase.initialize();
+  isar = Isar.openSync([ExpenseSchema, GoalModelSchema], directory: dir.path);
 
-  // Create a MultiProvider to manage both databases
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => ExpenseDatabase()),

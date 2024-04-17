@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1067422879074",
+    "project_id": "spendwise-47c25",
+    "storage_bucket": "spendwise-47c25.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067422879074:android:a0c7a6e2424a7ca7d9303b",
+        "android_client_info": {
+          "package_name": "com.example.financial_management_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6oJXMEaWFYlBR2eSMy7mI5THNJq6IrXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

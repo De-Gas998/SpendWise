@@ -111,51 +111,59 @@ class _WalletPageState extends State<WalletPage> {
                 ),
 
                 //3 buttons (send + pay + bills)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      //send button
-                      MiniContainer(
-                          iconImagePath: "images/send.png", buttonName: "Send"),
-
-                      //pay button
-                      MiniContainer(
-                          iconImagePath: "images/credit-cards.png",
-                          buttonName: "Pay"),
-
-                      //bills button
-                      MiniContainer(
-                          iconImagePath: "images/bills.png",
-                          buttonName: "Bills"),
-                    ],
-                  ),
-                ),
-
-                SizedBox(
-                  height: 30,
-                ),
-
-                //column -> statistics + transactions
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(children: [
-                    //statistics
-                    MyListTile(
-                        iconImagePath: "images/analysis.png",
-                        tileTile: "Statistics",
-                        tileSubTitle: "Payment and Income"),
-
-                    SizedBox(
-                      height: 20,
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              //send button
+                              MiniContainer(
+                                  iconImagePath: "images/send.png", buttonName: "Send"),
+                        
+                              //pay button
+                              MiniContainer(
+                                  iconImagePath: "images/credit-cards.png",
+                                  buttonName: "Pay"),
+                        
+                              //bills button
+                              MiniContainer(
+                                  iconImagePath: "images/bills.png",
+                                  buttonName: "Bills"),
+                            ],
+                          ),
+                        ),
+                        
+                        SizedBox(
+                          height: 30,
+                        ),
+                        
+                        //column -> statistics + transactions
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Column(children: [
+                            //statistics
+                            MyListTile(
+                                iconImagePath: "images/analysis.png",
+                                tileTile: "Statistics",
+                                tileSubTitle: "Payment and Income"),
+                        
+                            SizedBox(
+                              height: 20,
+                            ),
+                        
+                            MyListTile(
+                                iconImagePath: "images/lending.png",
+                                tileTile: "Transactions",
+                                tileSubTitle: "Transaction History"),
+                          ]),
+                        ),
+                      ],
                     ),
-
-                    MyListTile(
-                        iconImagePath: "images/lending.png",
-                        tileTile: "Transactions",
-                        tileSubTitle: "Transaction History"),
-                  ]),
+                  ),
                 ),
               ],
             )),

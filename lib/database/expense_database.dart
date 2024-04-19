@@ -8,6 +8,8 @@ class ExpenseDatabase extends ChangeNotifier {
   // static late Isar isar;
   List<Expense> _allExpenses = [];
   Future<Map<int, double>>? _monthlyTotalsFuture;
+
+  double _totalBalance = 0.0;
   /*
   S E T U P
   */
@@ -25,7 +27,7 @@ class ExpenseDatabase extends ChangeNotifier {
 
   List<Expense> get allExpense => _allExpenses;
   Future<Map<int, double>> get monthlyTotalsFuture => _monthlyTotalsFuture!;
-
+  double get totalBalance => _totalBalance;
   /*
   O P E R A T I O N S
   */
@@ -131,6 +133,16 @@ class ExpenseDatabase extends ChangeNotifier {
 
   refreshPage() {
     _monthlyTotalsFuture = calculateMonthlyTotals();
+    notifyListeners();
+  }
+
+  getTotalBalane(double balance, from) {
+    final bl = sharedPreferences.setDouble("balance", balance);
+    if (from == "Income" || from == "Savings" || from == "Points") {
+      _totalBalance += sharedPreferences.getDouble("balance")!;
+    } else {
+      _totalBalance -= sharedPreferences.getDouble("balance")!;
+    }
     notifyListeners();
   }
 }

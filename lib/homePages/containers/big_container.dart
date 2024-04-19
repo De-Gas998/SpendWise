@@ -2,12 +2,14 @@
 
 import 'package:financial_management_app/analysisPages/expense.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class BigContainer extends StatelessWidget {
   const BigContainer({super.key, this.individualExpense});
   final Expense? individualExpense;
   @override
   Widget build(BuildContext context) {
+    String date = DateFormat.yMMMMEEEEd().format(individualExpense!.date);
     return Column(
       children: [
         SizedBox(
@@ -58,7 +60,7 @@ class BigContainer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "-\$ ${individualExpense!.account}",
+                        "GH\u20b2 -${individualExpense!.account}",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
@@ -66,7 +68,7 @@ class BigContainer extends StatelessWidget {
                         height: 8,
                       ),
                       Text(
-                        "Oct 27, 2022",
+                        date,
                         style: TextStyle(fontSize: 12),
                       ),
                     ],

@@ -12,17 +12,20 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+late SharedPreferences sharedPreferences;
 late Isar isar;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  sharedPreferences = await SharedPreferences.getInstance();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   final dir = await getApplicationDocumentsDirectory();
   isar = Isar.openSync([ExpenseSchema, GoalModelSchema], directory: dir.path);
-
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => ExpenseDatabase()),

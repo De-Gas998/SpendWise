@@ -3,7 +3,6 @@
 import 'package:financial_management_app/analysisPages/expense.dart';
 import 'package:financial_management_app/database/expense_database.dart';
 import 'package:financial_management_app/homePages/containers/big_container.dart';
-import 'package:financial_management_app/homePages/containers/circular.dart';
 import 'package:financial_management_app/homePages/containers/rectangle.dart';
 
 import 'package:flutter/material.dart';
@@ -49,18 +48,21 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             "Total balance",
                             style: TextStyle(
                               fontSize: 18,
                             ),
                           ),
-                          Text(
-                            "\$9000.00",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.w600),
-                          )
+                          Consumer<ExpenseDatabase>(
+                              builder: (context, expense, c) {
+                            return Text(
+                              "GH\u20b2 ${expense.totalBalance}",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w600),
+                            );
+                          })
                         ],
                       ),
                       IconButton(

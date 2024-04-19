@@ -7,8 +7,9 @@ import 'package:isar/isar.dart';
 class ExpenseDatabase extends ChangeNotifier {
   // static late Isar isar;
   List<Expense> _allExpenses = [];
-  
+  Future<Map<int, double>>? _monthlyTotalsFuture;
 
+  double _totalBalance = 0.0;
   /*
   S E T U P
   */
@@ -25,7 +26,8 @@ class ExpenseDatabase extends ChangeNotifier {
   */
 
   List<Expense> get allExpense => _allExpenses;
-
+  Future<Map<int, double>> get monthlyTotalsFuture => _monthlyTotalsFuture!;
+  double get totalBalance => _totalBalance;
   /*
   O P E R A T I O N S
   */
@@ -78,7 +80,7 @@ class ExpenseDatabase extends ChangeNotifier {
   */
 
   //calculate total expense for each month
-  Future<Map<int, double>> calculateMonthlyTotals()async{
+  Future<Map<int, double>> calculateMonthlyTotals() async {
     //ensure expenses are read from db
     await readExpenses();
 
@@ -86,13 +88,13 @@ class ExpenseDatabase extends ChangeNotifier {
     Map<int, double> monthlyTotals = {};
 
     //iterate over all expenses
-    for (var expense in _allExpenses){
-      //extratch the month from the date of the expense 
+    for (var expense in _allExpenses) {
+      //extratch the month from the date of the expense
       int month = expense.date.month;
-
+      print(expense.date.month);
       //if the month is not yet in the map, initialize to 0
-      if(!monthlyTotals.containsKey(month)){
-        monthlyTotals[month] =0;
+      if (!monthlyTotals.containsKey(month)) {
+        monthlyTotals[month] = 0;
       }
 
       //add the expense amount to the total for the month
@@ -102,9 +104,9 @@ class ExpenseDatabase extends ChangeNotifier {
   }
 
   // get start month
-  int getStartMonth(){
-    if(allExpense.isEmpty){
-      return DateTime.now().month; 
+  int getStartMonth() {
+    if (allExpense.isEmpty) {
+      return DateTime.now().month;
       //default to current month is no expense are recorded
     }
 
@@ -116,9 +118,9 @@ class ExpenseDatabase extends ChangeNotifier {
   }
 
   //get start year
-  int getStartYear(){
-    if(allExpense.isEmpty){
-      return DateTime.now().year; 
+  int getStartYear() {
+    if (allExpense.isEmpty) {
+      return DateTime.now().year;
       //default to current month is no expense are recorded
     }
 
@@ -127,5 +129,20 @@ class ExpenseDatabase extends ChangeNotifier {
       (a, b) => a.date.compareTo(b.date),
     );
     return _allExpenses.first.date.year;
+  }
+
+  refreshPage() {
+    _monthlyTotalsFuture = calculateMonthlyTotals();
+    notifyListeners();
+  }
+
+  getTotalBalane(double balance, from) {
+    final bl = sharedPreferences.setDouble("balance", balance);
+    if (from == "Income" || from == "Savings" || from == "Points") {
+      _totalBalance += sharedPreferences.getDouble("balance")!;
+    } else {
+      _totalBalance -= sharedPreferences.getDouble("balance")!;
+    }
+    notifyListeners();
   }
 }

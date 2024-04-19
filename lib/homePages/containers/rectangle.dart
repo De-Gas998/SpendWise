@@ -1,27 +1,81 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:financial_management_app/database/expense_database.dart';
+import 'package:financial_management_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Rectangle extends StatelessWidget {
-  const Rectangle({
+class Rectangle extends StatefulWidget {
+  Rectangle({
     super.key,
   });
 
   @override
+  State<Rectangle> createState() => _RectangleState();
+}
+
+class _RectangleState extends State<Rectangle> {
+  final TextEditingController amountController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
+    List<String> expensesList = sharedPreferences.getStringList("expenses")!;
     return Wrap(
         spacing: 10,
         runSpacing: 15,
         children: List.generate(
-          homeStatatisticsList.length,
-          (index) => StatisticsCard(
-            onTap: () {
-              // print(homeStatatisticsList[index]['title']);
-            },
-            title: homeStatatisticsList[index]['title'],
-            subTitle: homeStatatisticsList[index]['subtitle'],
-            image: homeStatatisticsList[index]['image'],
-          ),
+          expensesList.length,
+          (index) => Consumer<ExpenseDatabase>(builder: (context, expense, c) {
+            return StatisticsCard(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (coontext) => AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    title: Text(
+                        "Update ${homeStatatisticsList[index]['subtitle']}",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600)),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextField(
+                          controller: amountController,
+                          decoration: InputDecoration(hintText: "Enter amount"),
+                        ),
+                      ],
+                    ),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text("Cancel")),
+                      TextButton(
+                          onPressed: () {
+                            setState(() {
+                              expensesList[index] =
+                                  amountController.text.toString();
+                              sharedPreferences.setStringList(
+                                  "expenses", expensesList);
+                            });
+                            expense.getTotalBalane(
+                                double.parse(amountController.text),
+                                homeStatatisticsList[index]['subtitle']);
+                            amountController.clear();
+                            Navigator.pop(context);
+                          },
+                          child: Text("Update")),
+                    ],
+                  ),
+                );
+              },
+              title: "\u20b2${expensesList[index]}",
+              subTitle: homeStatatisticsList[index]['subtitle'],
+              image: homeStatatisticsList[index]['image'],
+            );
+          }),
         ));
   }
 }
@@ -84,7 +138,7 @@ class StatisticsCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "\$$title",
+                          "$title",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),

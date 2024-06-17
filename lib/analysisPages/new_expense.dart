@@ -100,8 +100,11 @@ class _CreateNewExpenseState extends State<CreateNewExpense> {
           account: convertStringToDouble(amountController!.text), 
           date: DateTime.now());
 
-        //save to do
+        //save to db
   widget.data!['name'].isEmpty?  await Provider.of<ExpenseDatabase>(context, listen: false).createNewExpense(newExpense):await Provider.of<ExpenseDatabase>(context, listen: false).updateExpense( widget.data!['id'] ,newExpense);
+
+        //refresh page
+        //refreshGraphData();
         
         // await context.read<ExpenseDatabase>().createNewExpense(newExpense);
 

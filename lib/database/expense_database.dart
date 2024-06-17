@@ -7,6 +7,7 @@ import 'package:isar/isar.dart';
 class ExpenseDatabase extends ChangeNotifier {
   // static late Isar isar;
   List<Expense> _allExpenses = [];
+  
 
   /*
   S E T U P

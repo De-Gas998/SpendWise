@@ -80,84 +80,89 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
                 surfaceTintColor: Colors.green,
               ),
               backgroundColor: Colors.grey.shade200,
-              body: Column(
-                children: [
-                  //Graph UI
-                  FutureBuilder(
-                    future: _monthlyTotalsFuture, 
-                    builder: (context, snapshot){
-                      //data is loaded
-                      if(snapshot.connectionState == ConnectionState.done){
-                        final monthlyTotals = snapshot.data ?? {};
-
-                        //create the list of monthly salary
-                        List<double> monthlySummary = List.generate(monthCount, 
-                        (index) => monthlyTotals[startMonth + index] ?? 0.0);
-
-                        return Text("data");
-                        // MyBarGraph(
-                        //   monthlySummary: monthlySummary, startMonth: startMonth);
-
-                      }
-
-                      else {
-                        return const Center(child: Text("Loading"));
-                      }
-                    }),
-
-                  //EXPENSE LIST UI
-                  Expanded(
-                    child: ListView.builder(
-                        itemCount: value.allExpense.length,
-                        itemBuilder: (context, index) {
-                          //get individual expense
-                          Expense individualExpense =
-                              value.allExpense.reversed.toList()[index];
-                  
-                          //return ListTile
-                          return Card(
-                            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                            child: Slidable(
-                              endActionPane: ActionPane(
-                                motion: StretchMotion(), 
-                                children: [
-                                  //settings option
-                                  SlidableAction(
-                                    backgroundColor: Colors.grey.shade700,
-                                    foregroundColor: Colors.white,
-                                    borderRadius: BorderRadius.circular(5),
-                                    onPressed: (v){
-                                      // print(v);
-                                         onEditPressed({
-                                      "name":individualExpense.name,
-                                      "amount":individualExpense.account,
-                                      "id":individualExpense.id
-                                    });
-                                    },
-                  
-                                    
-                                  
-                                  icon: Icons.edit,),
-                  
-                                  //delete option
-                                   SlidableAction(
-                                    backgroundColor: Colors.red.shade700,
-                                    foregroundColor: Colors.white,
-                                    borderRadius: BorderRadius.circular(5),
-                                    onPressed: (v)async{
-                                await context.read<ExpenseDatabase>().deleteExpense(individualExpense.id);
-                                    },
-                                  icon: Icons.delete,)
-                                ]),
-                              child: ListTile(
-                                title: Text(individualExpense.name),
-                                trailing: Text("GH\u20b2 ${individualExpense.account}"),
-                              ),
-                            ),
-                          );
+              body: SafeArea(
+                child: Column(
+                  children: [
+                    //Graph UI
+                    SizedBox(
+                      height: 250,
+                      child: FutureBuilder(
+                        future: _monthlyTotalsFuture, 
+                        builder: (context, snapshot){
+                          //data is loaded
+                          if(snapshot.connectionState == ConnectionState.done){
+                            final monthlyTotals = snapshot.data ?? {};
+                    
+                            //create the list of monthly salary
+                            List<double> monthlySummary = List.generate(monthCount, 
+                            (index) => monthlyTotals[startMonth + index] ?? 0.0);
+                    
+                            return
+                            MyBarGraph(
+                              monthlySummary: monthlySummary, startMonth: startMonth);
+                    
+                          }
+                          //loading
+                          else {
+                            return const Center(child: Text("Loading"));
+                          }
                         }),
-                  ),
-                ],
+                    ),
+              
+                    //EXPENSE LIST UI
+                    Expanded(
+                      child: ListView.builder(
+                          itemCount: value.allExpense.length,
+                          itemBuilder: (context, index) {
+                            //get individual expense
+                            Expense individualExpense =
+                                value.allExpense.reversed.toList()[index];
+                    
+                            //return ListTile
+                            return Card(
+                              margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                              child: Slidable(
+                                endActionPane: ActionPane(
+                                  motion: StretchMotion(), 
+                                  children: [
+                                    //settings option
+                                    SlidableAction(
+                                      backgroundColor: Colors.grey.shade700,
+                                      foregroundColor: Colors.white,
+                                      borderRadius: BorderRadius.circular(5),
+                                      onPressed: (v){
+                                        // print(v);
+                                           onEditPressed({
+                                        "name":individualExpense.name,
+                                        "amount":individualExpense.account,
+                                        "id":individualExpense.id
+                                      });
+                                      },
+                    
+                                      
+                                    
+                                    icon: Icons.edit,),
+                    
+                                    //delete option
+                                     SlidableAction(
+                                      backgroundColor: Colors.red.shade700,
+                                      foregroundColor: Colors.white,
+                                      borderRadius: BorderRadius.circular(5),
+                                      onPressed: (v)async{
+                                  await context.read<ExpenseDatabase>().deleteExpense(individualExpense.id);
+                                      },
+                                    icon: Icons.delete,)
+                                  ]),
+                                child: ListTile(
+                                  title: Text(individualExpense.name),
+                                  trailing: Text("GH\u20b2 ${individualExpense.account}"),
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                  ],
+                ),
               ),
             );
         });
